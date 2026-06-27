@@ -7,11 +7,67 @@
     <title>Lab Figma · Manuel de référence</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&amp;display=swap">
     <link rel="stylesheet" href="styles.css">
+    <script defer src="docs.js"></script>
+    <script defer src="app.js"></script>
   </head>
   <body>
-    <main>
-      <h1>Lab Figma · Manuel de référence</h1>
-      <p>Retrouve les commandes, les méthodes et les bonnes pratiques de Figma.</p>
-    </main>
+    <a href="#contenu" class="skip">Aller au contenu</a>
+    <header>
+      <div class="bar">
+        <a href="#" class="brand">
+          <span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          Lab Figma
+        </a>
+        <a class="updates" href="https://www.figma.com/release-notes/">Notes de version ↗</a>
+      </div>
+    </header>
+
+    <div class="shell">
+      <aside class="sidebar">
+        <p class="nav-title">Documentation</p>
+        <nav class="topic-nav" aria-label="Chapitres" id="topics"></nav>
+      </aside>
+
+      <main id="contenu" tabindex="-1">
+        <div id="intro"></div>
+        <div id="view"></div>
+        <footer>
+          <a href="https://help.figma.com/hc/en-us/">Centre d’aide Figma</a>
+          · <a href="https://www.figma.com/release-notes/">Suivre les évolutions</a>
+        </footer>
+        <noscript>Active JavaScript pour naviguer dans ce manuel.</noscript>
+      </main>
+    </div>
+
+    <template id="home-hero">
+      <section class="hero">
+        <div class="hero-content">
+          <div class="eyebrow">Documentation interactive</div>
+          <h1>Manuel de référence Figma</h1>
+          <p>Retrouve les commandes, les méthodes et les bonnes pratiques au moment où tu en as besoin.
+            De la première frame à la livraison, avec un guide des outils de la suite Figma.</p>
+          <span class="badge" data-count="docs"></span>
+          <span class="badge" data-count="chapters"></span>
+          <span class="badge">Figma Design et sa suite</span>
+        </div>
+        <svg class="art" viewBox="0 0 260 200" aria-hidden="true">
+        <defs>
+        <pattern id="dots" width="12" height="12" patternUnits="userSpaceOnUse">
+        <circle cx="1" cy="1" r="1" fill="#b6a7b4" opacity=".45"/>
+        </pattern>
+        </defs>
+        <rect x="2" y="2" width="256" height="196" rx="16" fill="url(#dots)"/>
+        <rect x="63" y="29" width="162" height="107" rx="9" fill="#0d75c2" stroke="#96d6ff"/>
+        <path d="M63 48h162M103 48v88" stroke="#96d6ff"/>
+        <path d="M116 65h92M116 77h61" stroke="#f3ffff" stroke-width="3" stroke-linecap="round"/>
+        <rect x="116" y="92" width="83" height="24" rx="5" fill="#f3ffff"/>
+        <rect x="31" y="69" width="63" height="106" rx="9" fill="#f3ffff" stroke="#1e0f1c" stroke-width="2"/>
+        <rect x="39" y="84" width="47" height="28" rx="4" fill="#cbc5c2"/>
+        <path d="M42 123h39M42 132h25" stroke="#575757" stroke-width="3" stroke-linecap="round"/>
+        <rect x="40" y="143" width="45" height="18" rx="4" fill="#fdb228"/>
+        <path d="M218 140l16 23-10-1-5 10z" fill="#fdb228" stroke="#1e0f1c" stroke-width="2"/>
+        </svg>
+      </section>
+    </template>
   </body>
 </html>
