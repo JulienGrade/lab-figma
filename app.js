@@ -3,6 +3,9 @@ const intro = document.querySelector('#intro');
 const view = document.querySelector('#view');
 const homeHero = document.querySelector('#home-hero');
 const main = document.querySelector('main');
+const query = document.querySelector('#query');
+const clear = document.querySelector('#clear');
+const status = document.querySelector('#status');
 
 const entries = chapters.flatMap(chapter => chapter.docs.map(doc => ({ chapter, doc })));
 const quickIds = ['auto-layout', 'mobile-first', 'variables', 'interactions', 'handoff'];
@@ -109,6 +112,23 @@ function articlePage({ chapter, doc }) {
   `;
 }
 
+function normalize(value) {
+  return value.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '');
+}
+
+function showResults(words) {
+  const matches = entries.filter(({ chapter, doc }) => {
+    const { title, keywords, purpose, steps, advice } = doc;
+    const corpus = normalize([chapter.title, title, keywords, purpose, steps, advice].join(' '));
+    return words.every(word => corpus.includes(word));
+  });
+
+  status.textContent = `${matches.length} ${matches.length === 1 ? 'fiche trouvée' : 'fiches trouvées'}`;
+  view.innerHTML = matches.length
+    ? `<div class="grid">${matches.map(docTile).join('')}</div>`
+    : '<p class="empty">Essaie un terme comme « mobile », « prototype » ou « variables ».</p>';
+}
+
 function render() {
   const route = location.hash.slice(1);
   const entry = entries.find(({ doc }) => doc.id === route);
@@ -117,7 +137,15 @@ function render() {
   showNav(entry?.chapter.id ?? chapter?.id);
   document.title = `${entry?.doc.title ?? chapter?.title ?? 'Manuel de référence'} · Lab Figma`;
   intro.replaceChildren();
+  clear.hidden = !query.value;
 
+  const words = normalize(query.value.trim()).split(/\s+/).filter(Boolean);
+  if (words.length) {
+    showResults(words);
+    return;
+  }
+
+  status.textContent = '';
   if (entry) {
     articlePage(entry);
   } else if (chapter) {
@@ -127,9 +155,27 @@ function render() {
   }
 }
 
+query.addEventListener('input', render);
+query.form.addEventListener('submit', event => event.preventDefault());
+clear.addEventListener('click', () => {
+  query.value = '';
+  render();
+  query.focus();
+});
+
+document.addEventListener('click', event => {
+  const link = event.target.closest('a[href^="#"]');
+  if (link && link.hash !== '#contenu' && query.value && link.hash === location.hash) {
+    query.value = '';
+    render();
+    main.focus({ preventScroll: true });
+  }
+});
+
 window.addEventListener('hashchange', () => {
   if (location.hash === '#contenu') return;
 
+  query.value = '';
   render();
   window.scrollTo(0, 0);
   main.focus({ preventScroll: true });
